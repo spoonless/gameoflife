@@ -12,17 +12,20 @@ end
 function gameoflife:neighbours(i)
   local x = i % self.dimension.width
   local grid_size = self.dimension.width * self.dimension.height
+  local left_delta = (x == 0) and self.dimension.width or 0
+  local right_delta = (x == self.dimension.width -1) and -self.dimension.width or 0
+  
   return {
-    x == 0 and (i + grid_size -1) % grid_size or (i + grid_size - self.dimension.width - 1) % grid_size,
+    (i + grid_size + left_delta - self.dimension.width - 1) % grid_size,
     (i + grid_size - self.dimension.width) % grid_size,
-    x == (self.dimension.width -1)  and (i + grid_size - self.dimension.width - x) % grid_size or (i + grid_size - self.dimension.width + 1) % grid_size,
+    (i + grid_size + right_delta - self.dimension.width + 1) % grid_size,
 
-    x == 0 and (i + self.dimension.width -1) or (i - 1),
-    x == (self.dimension.width -1) and (i -x) or (i + 1) % grid_size,
+    (i + left_delta - 1) % grid_size,
+    (i + right_delta + 1) % grid_size,
     
-    x == 0 and (i + self.dimension.width + self.dimension.width -1) % grid_size or (i + self.dimension.width - 1) % grid_size,
+    (i + left_delta + self.dimension.width - 1) % grid_size,
     (i + self.dimension.width) % grid_size,
-    x == (self.dimension.width -1)  and (i + self.dimension.width - x) % grid_size or (i + self.dimension.width + 1) % grid_size,
+    (i + right_delta + self.dimension.width + 1) % grid_size,
   }
 end
 
