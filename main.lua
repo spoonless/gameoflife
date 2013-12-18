@@ -38,7 +38,7 @@ end
 local function fill_with_cells()
   math.randomseed( os.time() )
   for i = 1, (gof.dimension.width * gof.dimension.width * (cell_ratio/100)) do
-    gof:add_cell(math.random(gof.dimension.width),math.random(gof.dimension.width))
+    gof:add_cell(math.random(gof.dimension.width) - 1,math.random(gof.dimension.width) - 1)
   end
 end
 
@@ -66,6 +66,6 @@ end
 
 function love.draw()
   for x, y in gof:cells() do
-    love.graphics.rectangle("fill", (x-1)*cell_width, (y-1)*cell_height, cell_width, cell_height)
+    love.graphics.rectangle("fill", (x)*cell_width, (y)*cell_height, cell_width, cell_height)
   end
 end
